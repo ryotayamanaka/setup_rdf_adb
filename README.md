@@ -166,3 +166,7 @@ From a new browser tab, access the URL below to send a SPARQL query as a GET req
 ```
 https://<ip_address>:8001/orardf/api/v1/datasets/query?datasource=ADW1&datasetDef={"metadata":[{"networkOwner":"ADMIN","networkName":"NETWORK1","models":["SAMPLE_MODEL"]}]}&query=select ?s ?p ?o where { ?s ?p ?o} limit 10
 ```
+
+## Change RDF Server Password
+
+(TBD)
