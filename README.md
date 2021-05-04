@@ -1,5 +1,15 @@
 # Setup RDF Graph Server with Autonomous Database
 
+- [Prerequisites](#Prerequisites)
+- [Create Autonomous Database](#Create-Autonomous-Database)
+- [Create Network for RDF Graph Server](#Create-Network-for-RDF-Graph-Server)
+- [Create RDF Graph Server](#Create-RDF-Graph-Server)
+- [Download Wallet](#Download-Wallet)
+- [Modify Wallet](#Modify-Wallet)
+- [Upload Wallet](#Upload-Wallet)
+- [Create RDF Network](#Create-RDF-Network)
+- [Run SPARQL Query](#Run-SPARQL-Query)
+
 ## Prerequisites
 
 - Oracle Cloud account
@@ -37,7 +47,6 @@ Oracle Cloud console > Marketplace > All Applications
 - Image
   - Name: Oracle RDF Graph Server and Query UI
   - Version: 21.1.0.1
-
 - Configure Variables
   - Server available domain: Any domain
   - Server shape: Any shape
