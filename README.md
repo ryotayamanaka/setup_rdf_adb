@@ -21,7 +21,7 @@
 Oracle Cloud console > Oracle Database > Autonomous Database > Create Autonomous Database
 
 - Configure the database
-  - Database name: `<db_name>` (e.g. adw01)
+  - Database name: `<db_name>` (e.g. `adw01`)
   - Database version: 21c 
   - Password: `<password_1>`
 
@@ -30,7 +30,7 @@ Oracle Cloud console > Oracle Database > Autonomous Database > Create Autonomous
 Oracle Cloud console > Networking > Virtual Cloud Networks > Start VCN Wizard > VCN with Internet Connectivity
 
 - Configuration
-  - VCN NAME: (e.g. vcn01)
+  - VCN NAME: (e.g. `vcn01`)
   - The rest of itmes: Do not need to change
 
 Public Subnet vcn01
@@ -70,40 +70,40 @@ Download
 
 Upload the wallet to the RDF Server and run a script to add the user name and password to the wallet.
 ```
-scp -i <key> ~/Downloads/Wallet_<db_name>.zip opc@<ip_address>:
-ssh -i <key> opc@<ip_address>
-mkdir wallet
-cd wallet
-unzip ../Wallet_<db_name>.zip
-export JAVA_HOME=/usr/local/java/jdk1.8.0_221
-/u01/app/oracle/middleware/wls12214/oracle_common/bin/mkstore -wrl /home/opc/wallet -createCredential <db_name>_high ADMIN <password_1>
+$ scp -i <key> ~/Downloads/Wallet_<db_name>.zip opc@<ip_address>:
+$ ssh -i <key> opc@<ip_address>
+$ mkdir wallet
+$ cd wallet
+$ unzip ../Wallet_<db_name>.zip
+$ export JAVA_HOME=/usr/local/java/jdk1.8.0_221
+$ /u01/app/oracle/middleware/wls12214/oracle_common/bin/mkstore -wrl /home/opc/wallet -createCredential <db_name>_high ADMIN <password_1>
 Enter wallet password: <password_2>
 ```
 
 Example:
 ```
-scp -i ssh/key/oci ~/Downloads/Wallet_ADW1.zip opc@111.222.333.444:
-ssh -i ssh/key/oci opc@111.222.333.444
-mkdir wallet
-cd wallet
-unzip ../Wallet_ADW1.zip
-export JAVA_HOME=/usr/local/java/jdk1.8.0_221
-/u01/app/oracle/middleware/wls12214/oracle_common/bin/mkstore -wrl /home/opc/wallet -createCredential RDF_high ADMIN WELcome123##
-Enter wallet password: [WELcome123##]
+$ scp -i ssh/key/oci ~/Downloads/Wallet_ADW1.zip opc@111.222.333.444:
+$ ssh -i ssh/key/oci opc@111.222.333.444
+$ mkdir wallet
+$ cd wallet
+$ unzip ../Wallet_ADW1.zip
+$ export JAVA_HOME=/usr/local/java/jdk1.8.0_221
+$ /u01/app/oracle/middleware/wls12214/oracle_common/bin/mkstore -wrl /home/opc/wallet -createCredential RDF_high ADMIN WELcome111##
+Enter wallet password: [WELcome222##]
 ```
 
 Download the modified wallet.
 ```
-zip ../wallet_with_cred.zip *
-exit
-scp -i <key> opc@<ip_address>:~/wallet_with_cred.zip ~/Downloads/
+$ zip ../wallet_with_cred.zip *
+$ exit
+$ scp -i <key> opc@<ip_address>:~/wallet_with_cred.zip ~/Downloads/
 ```
 
 Example:
 ```
-zip ../wallet_with_cred.zip *
-exit
-scp -i ssh/key/oci opc@111.222.333.444:~/wallet_with_cred.zip ~/Downloads/
+$ zip ../wallet_with_cred.zip *
+$ exit
+$ scp -i ssh/key/oci opc@111.222.333.444:~/wallet_with_cred.zip ~/Downloads/
 ```
 
 ## Upload Wallet
@@ -128,9 +128,9 @@ Data tab
 
 Data tab > RDF Network > + icon (= Create network)
 
-- Network owner: ADMIN
-- Network name: network1
-- Tablespace: DATA
+- Network owner: `ADMIN`
+- Network name: Any network name (e.g. `NETWORK1`)
+- Tablespace: `DATA`
 
 Data tab
 
@@ -139,13 +139,13 @@ Data tab
 Data tab > Import > Upload data icon
 
 - Upload: Select `sample.nt`
-- Staging table: Input any new table name (e.g. `sample_table`)
-- Overwrite:
+- Staging table: Input any new table name (e.g. `SAMPLE_TABLE`)
+- Overwrite: Off (unless the table name is used already)
 
 Data tab > Import > Bulk load data icon
 
 - RDF Data
-  - Model: Input any model name (e.g. `sample_model`)
+  - Model: Input any model name (e.g. `SAMPLE_MODEL`)
   - Staging table owner: `ADMIN`
   - Staging table: Select the table created above (e.g. `SAMPLE_TABLE`)
 - Options
