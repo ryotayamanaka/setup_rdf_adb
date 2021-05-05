@@ -14,15 +14,18 @@
 
 - Oracle Cloud account
 - 1 SSH key pair (private / public key)
-- 3 passwords (DB admin, Wallet, RDF Server)
+- 3 passwords
+  - <password_1>: DB login (`ADMIN` user)
+  - <password_2>: DB Connection Wallet
+  - <password_1>: RDF Server login (`weblogic` user)
 
 ## Create Autonomous Database
 
 Oracle Cloud console > Oracle Database > Autonomous Database > Create Autonomous Database
 
 - Configure the database
-  - Database name: `<db_name>` (e.g. `adw01`)
-  - Database version: 21c 
+  - Database name: `<db_name>` (e.g. `ADB1`)
+  - Database version: `21c` 
   - Password: `<password_1>`
 
 ## Create Network for RDF Graph Server
@@ -45,8 +48,8 @@ Public Subnet vcn01
 Oracle Cloud console > Marketplace > All Applications
 
 - Image
-  - Name: Oracle RDF Graph Server and Query UI
-  - Version: 21.1.0.1
+  - Name: `Oracle RDF Graph Server and Query UI`
+  - Version: `21.1.0.1`
 - Configure Variables
   - Server available domain: Any domain
   - Server shape: Any shape
@@ -58,7 +61,7 @@ Oracle Cloud console > Marketplace > All Applications
 
 Oracle Cloud console > Oracle Database > Autonomous Database
 
-Select the ADW created above > DB Connection
+Select the ADB created above > DB Connection
 
 - Wallet Type: `Instance Wallet`
 
@@ -76,20 +79,22 @@ $ mkdir wallet
 $ cd wallet
 $ unzip ../Wallet_<db_name>.zip
 $ export JAVA_HOME=/usr/local/java/jdk1.8.0_221
-$ /u01/app/oracle/middleware/wls12214/oracle_common/bin/mkstore -wrl /home/opc/wallet -createCredential <db_name>_high ADMIN <password_1>
+$ /u01/app/oracle/middleware/wls12214/oracle_common/bin/mkstore
+  -wrl /home/opc/wallet -createCredential <db_name>_high ADMIN <password_1>
 Enter wallet password: <password_2>
 ```
 
 Example:
 ```
-$ scp -i ssh/key/oci ~/Downloads/Wallet_ADW1.zip opc@111.222.333.444:
-$ ssh -i ssh/key/oci opc@111.222.333.444
+$ scp -i .ssh/id_rsa ~/Downloads/Wallet_ADB1.zip opc@192.0.2.1:
+$ ssh -i .ssh/id_rsa opc@192.0.2.1
 $ mkdir wallet
 $ cd wallet
-$ unzip ../Wallet_ADW1.zip
+$ unzip ../Wallet_ADB1.zip
 $ export JAVA_HOME=/usr/local/java/jdk1.8.0_221
-$ /u01/app/oracle/middleware/wls12214/oracle_common/bin/mkstore -wrl /home/opc/wallet -createCredential RDF_high ADMIN WELcome111##
-Enter wallet password: [WELcome222##]
+$ /u01/app/oracle/middleware/wls12214/oracle_common/bin/mkstore \
+  -wrl /home/opc/wallet -createCredential ADB1_high ADMIN <password_1>
+Enter wallet password: <password_2>
 ```
 
 Download the modified wallet.
@@ -103,30 +108,30 @@ Example:
 ```
 $ zip ../wallet_with_cred.zip *
 $ exit
-$ scp -i ssh/key/oci opc@111.222.333.444:~/wallet_with_cred.zip ~/Downloads/
+$ scp -i .ssh/id_rsa opc@192.0.2.1:~/wallet_with_cred.zip ~/Downloads/
 ```
 
 ## Upload Wallet
 
 Sign in to the RDF Graph Server and Query UI
 
-- URL: https://<ip_address>:8001/orardf
+- URL: `https://<ip_address>:8001/orardf`
 - User: `weblogic`
 - Password: `welcome1` (This password should be changed in the latter step)
 
 Data sources tab > Create > Wallet
 
 - Zip file: Select `wallet_with_cred.zip`
-- Name: Any name of this data source (e.g. `ADW1`)
+- Name: Any name of this data source (e.g. `ADB1`)
 - Wallet Service: The service modified above `<db_name>_high` (e.g. `ADB1_high`)
 
 ## Create RDF Network
 
 Data tab
 
-- Data source: The data source created above (e.g. `ADW1`)
+- Data source: The data source created above (e.g. `ADB1`)
 
-Data tab > RDF Network > + icon (= Create network)
+Data tab > RDF Network > Create network icon
 
 - Network owner: `ADMIN`
 - Network name: Any network name (e.g. `NETWORK1`)
@@ -164,7 +169,7 @@ Click **Execute** button to run the SPARQL query in the text box.
 From a new browser tab, access the URL below to send a SPARQL query as a GET request.
 
 ```
-https://<ip_address>:8001/orardf/api/v1/datasets/query?datasource=ADW1&datasetDef={"metadata":[{"networkOwner":"ADMIN","networkName":"NETWORK1","models":["SAMPLE_MODEL"]}]}&query=select ?s ?p ?o where { ?s ?p ?o} limit 10
+https://<ip_address>:8001/orardf/api/v1/datasets/query?datasource=ADB1&datasetDef={"metadata":[{"networkOwner":"ADMIN","networkName":"NETWORK1","models":["SAMPLE_MODEL"]}]}&query=select ?s ?p ?o where { ?s ?p ?o} limit 10
 ```
 
 ## Change RDF Server Password
