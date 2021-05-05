@@ -15,9 +15,9 @@
 - Oracle Cloud account
 - 1 SSH key pair (private / public key)
 - 3 passwords
-  - <password_1>: DB login (`ADMIN` user)
-  - <password_2>: DB Connection Wallet
-  - <password_1>: RDF Server login (`weblogic` user)
+  - `<password_1>`: DB login (`ADMIN` user)
+  - `<password_2>`: DB Connection Wallet
+  - `<password_3>`: RDF Server login (`weblogic` user)
 
 ## Create Autonomous Database
 
