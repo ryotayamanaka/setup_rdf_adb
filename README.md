@@ -33,7 +33,7 @@ Oracle Cloud console > Oracle Database > Autonomous Database > Create Autonomous
 Oracle Cloud console > Networking > Virtual Cloud Networks > Start VCN Wizard > VCN with Internet Connectivity
 
 - Configuration
-  - VCN NAME: (e.g. `vcn01`)
+  - VCN NAME: (e.g. `VCN1`)
   - The rest of itmes: Do not need to change
 
 Public Subnet vcn01
@@ -41,7 +41,7 @@ Public Subnet vcn01
 - Add Ingress Rules
   - Source CIDR: `0.0.0.0/0`
   - Destination port range: `7002,8001`
-  - Description: `For RDF Server`
+  - Description: `For RDF Graph Server`
 
 ## Create RDF Graph Server
 
@@ -49,7 +49,7 @@ Oracle Cloud console > Marketplace > All Applications
 
 - Image
   - Name: `Oracle RDF Graph Server and Query UI`
-  - Version: `21.1.0.1`
+  - Version: `21.2.0`
 - Configure Variables
   - Server available domain: Any domain
   - Server shape: Any shape
@@ -93,7 +93,7 @@ $ cd wallet
 $ unzip ../Wallet_ADB1.zip
 $ export JAVA_HOME=/usr/local/java/jdk1.8.0_221
 $ /u01/app/oracle/middleware/wls12214/oracle_common/bin/mkstore \
-  -wrl /home/opc/wallet -createCredential ADB1_high ADMIN <password_1>
+  -wrl /home/opc/wallet -createCredential adb1_high ADMIN <password_1>
 Enter wallet password: <password_2>
 ```
 
@@ -123,7 +123,7 @@ Data sources tab > Create > Wallet
 
 - Zip file: Select `wallet_with_cred.zip`
 - Name: Any name of this data source (e.g. `ADB1`)
-- Wallet Service: The service modified above `<db_name>_high` (e.g. `ADB1_high`)
+- Wallet Service: The service modified above `<db_name>_high` (e.g. `adb1_high`)
 
 ## Create RDF Network
 
