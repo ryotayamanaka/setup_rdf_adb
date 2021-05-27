@@ -174,4 +174,17 @@ https://<ip_address>:8001/orardf/api/v1/datasets/query?datasource=ADB1&datasetDe
 
 ## Change RDF Server Password
 
-(TBD)
+Access WebLogic Server console using Firefox.
+
+- https://<ip_address>:7002/console
+
+Login with the default password.
+
+- Username: weblogic
+- Password: welcome1
+
+Go to `Security Realms` > `Users and Groups`, and select `weblogic`.
+
+Change password from the `Passwords` tab.
+
+Login to RDF Graph Server console with the new password.
