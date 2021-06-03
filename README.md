@@ -57,6 +57,8 @@ Oracle Cloud console > Marketplace > All Applications
   - Existing virtual cloud network: The VCN created above
   - Existing subnet: The public subnet of the VCN
 
+Please check the IP address of this compute VM via the Web console.
+
 ## Download Wallet
 
 Oracle Cloud console > Oracle Database > Autonomous Database
