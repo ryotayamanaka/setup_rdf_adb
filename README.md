@@ -168,6 +168,8 @@ Right click the model (e.g. `SAMPLE_MODEL`) > Open
 
 Click **Execute** button to run the SPARQL query in the text box.
 
+![rdf_query_ui](https://user-images.githubusercontent.com/4862919/122530814-d8a08f80-d059-11eb-9728-2d8bbbbd763b.jpg)
+
 From a new browser tab, access the URL below to send a SPARQL query as a GET request.
 
 ```
