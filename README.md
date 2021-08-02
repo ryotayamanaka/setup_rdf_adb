@@ -25,7 +25,7 @@ Oracle Cloud console > Oracle Database > Autonomous Database > Create Autonomous
 
 - Configure the database
   - Database name: `<db_name>` (e.g. `ADB1`)
-  - Database version: `21c` 
+  - Database version: `19c` or `21c` 
   - Password: `<password_1>`
 
 ## Create Network for RDF Graph Server
