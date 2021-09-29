@@ -226,7 +226,7 @@ select
   RDF$STC_SUB
 , RDF$STC_PRED
 , RDF$STC_OBJ
-, 'http://togogenome.db.naro.affrc.go.jp/ontology/taxonomy' as RDF$STC_GRAPH
+, '<http://example.org/graph1>' as RDF$STC_GRAPH
 from SAMPLE_TABLE
 ```
 
