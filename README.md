@@ -1,5 +1,7 @@
 # Setup RDF Graph Server with Autonomous Database
 
+Quick start:
+
 - [Prerequisites](#Prerequisites)
 - [Create Autonomous Database](#Create-Autonomous-Database)
 - [Create Network for RDF Graph Server](#Create-Network-for-RDF-Graph-Server)
@@ -9,6 +11,13 @@
 - [Upload Wallet](#Upload-Wallet)
 - [Create RDF Network](#Create-RDF-Network)
 - [Run SPARQL Query](#Run-SPARQL-Query)
+
+Appendix:
+
+- [Change RDF Server Password](#Change-RDF-Server-Password)
+- []()
+
+# Quick Start
 
 ## Prerequisites
 
@@ -176,6 +185,8 @@ From a new browser tab, access the URL below to send a SPARQL query as a GET req
 https://<ip_address>:8001/orardf/api/v1/datasets/query?datasource=ADB1&datasetDef={"metadata":[{"networkOwner":"ADMIN","networkName":"NETWORK1","models":["SAMPLE_MODEL"]}]}&query=select ?s ?p ?o where { ?s ?p ?o} limit 10
 ```
 
+# Appendix
+
 ## Change RDF Server Password
 
 Access WebLogic Server console using Firefox.
@@ -192,3 +203,42 @@ Go to `Security Realms` > `Users and Groups`, and select `weblogic`.
 Change password from the `Passwords` tab.
 
 Login to RDF Graph Server console with the new password.
+
+## Load Triples with Graph Name
+
+From RDF Server, upload data to a staging table as explained at [Create RDF Network](#Create-RDF-Network).
+
+- Upload: Select `sample.nt`
+- Staging table: Input any new table name (e.g. `SAMPLE_TABLE`)
+- Overwrite: Off (unless the table name is used already)
+
+Add a new column for a graph name to the staging table as follows.
+
+Data tab > Import > Bulk load data icon
+
+Oracle Cloud console > Oracle Database > Autonomous Database
+
+Select the ADB created above > Tools > Open Database Actions
+
+```
+create view SAMPLE_VIEW as
+select
+  RDF$STC_SUB
+, RDF$STC_PRED
+, RDF$STC_OBJ
+, 'http://togogenome.db.naro.affrc.go.jp/ontology/taxonomy' as RDF$STC_GRAPH
+from SAMPLE_TABLE
+```
+
+Go back to RDF Server and import from the staging table (= a new view `V_STAGE`) to a model.
+
+Data tab > Import > Bulk load data icon
+
+- RDF Data
+  - Model: Input any model name (e.g. `SAMPLE_MODEL`)
+  - Staging table owner: `ADMIN`
+  - Staging table: Select the table created above (e.g. `SAMPLE_VIEW`)
+- Options
+  - All of the items: Do not need to change
+- Event Trace
+  - All of the items: Do not need to change
