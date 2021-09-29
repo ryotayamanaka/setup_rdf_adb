@@ -15,7 +15,7 @@ Quick start:
 Appendix:
 
 - [Change RDF Server Password](#Change-RDF-Server-Password)
-- []()
+- [Load Triples with Graph Name](#Load-Triples-with-Graph-Name)
 
 # Quick Start
 
