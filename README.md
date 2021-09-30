@@ -230,7 +230,7 @@ select
 from SAMPLE_TABLE
 ```
 
-Go back to RDF Server and import from the staging table (= a new view `V_STAGE`) to a model.
+Go back to RDF Server and import from the staging table (= a new view `SAMPLE_VIEW`) to a model.
 
 Data tab > Import > Bulk load data icon
 
