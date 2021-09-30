@@ -58,7 +58,7 @@ Oracle Cloud console > Marketplace > All Applications
 
 - Image
   - Name: `Oracle RDF Graph Server and Query UI`
-  - Version: `21.2.0`
+  - Version: `21.3.0.1`
 - Configure Variables
   - Server available domain: Any domain
   - Server shape: Any shape
@@ -242,3 +242,11 @@ Data tab > Import > Bulk load data icon
   - All of the items: Do not need to change
 - Event Trace
   - All of the items: Do not need to change
+
+Now this SPARQL query should return the graph name.
+
+```
+SELECT *
+WHERE { GRAPH ?g { ?s ?p ?o }} 
+LIMIT 500
+```
